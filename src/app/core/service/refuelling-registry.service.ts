@@ -111,8 +111,4 @@ export class RefuellingRegistryService {
     return this.http.delete(api);
   }
   /*------------------//API-----------------*/
-
-  public refullingResToRefulling(){
-    
-  }
 }

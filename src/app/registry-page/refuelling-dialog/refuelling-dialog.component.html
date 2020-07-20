@@ -75,12 +75,14 @@
     </div>
   </mat-step>
 
-  <mat-step class="bottom-section">
-    <ng-template matStepLabel>Confirm</ng-template>
-    <h3>Press button to confirm action</h3>
-    <button mat-button matStepperPrevious>Back</button>
-    <button mat-flat-button *ngIf="operationType=='ADD'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid" (click)="submitRefuellingFrom()"> Add </button>
-    <button mat-flat-button *ngIf="operationType=='UPDATE'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid" (click)="submitRefuellingFrom()"> Update </button>
+  <mat-step >
+    <div class="bottom-section">
+      <ng-template matStepLabel>Confirm</ng-template>
+      <h3>Press button to confirm action</h3>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-flat-button *ngIf="operationType=='ADD'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid" (click)="submitRefuellingFrom()"> Add </button>
+      <button mat-flat-button *ngIf="operationType=='UPDATE'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid" (click)="submitRefuellingFrom()"> Update </button>
+    </div>
   </mat-step>
 
 </mat-horizontal-stepper>

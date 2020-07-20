@@ -1,0 +1,5 @@
+<button mat-flat-button color="accent" (click)="openAddDialog()"><mat-icon>playlist_add</mat-icon>Add</button>
+<registry-table [refuellings]="refuellings_0|async"
+    [refuellingsRegistryTableOperationInProgres]="refuellingsRegistryTableOperationInProgres_0|async"
+    (deleteRow)="deleteRefuelling($event)"
+    (updateRow)="updateRefuelling($event)"></registry-table>

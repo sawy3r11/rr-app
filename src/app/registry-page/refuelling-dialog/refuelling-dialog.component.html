@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Refuellig Dialog</h1>
+
+<form [formGroup]="refuellingForm" autocomplete="off" novalidate (ngSubmit)="submitRefuellingFrom(refuellingForm.value)" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <div mat-dialog-content>
+    <div class="example-container">
+      <mat-form-field>
+        <input type="number" formControlName="price" matInput placeholder="Price" id="price">
+        <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
+        <mat-error *ngIf="hasError('price', 'min')">Minimal value is 0.001</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="number" formControlName="amount" matInput placeholder="Amount" id="amount">
+        <mat-error *ngIf="hasError('amount', 'required')">Amount is required</mat-error>
+        <mat-error *ngIf="hasError('amount', 'min')">Minimal value is 0.001</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="number" formControlName="odometerReading" matInput placeholder="Odometer reading" id="odometerReading">
+        <mat-error *ngIf="hasError('odometerReading', 'required')">Odometer reading is required</mat-error>
+        <mat-error *ngIf="hasError('odometerReading', 'min')">Minimal value is 0.001</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Fuel Type" formControlName="fuelType" id="fuelType">
+          <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{fuelType}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('fuelType', 'required')">Fuel type reading is required</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input type="datetime-local" formControlName="refuelingDateTime" matInput placeholder="Date" id="refuelingDateTime">
+        <mat-error *ngIf="hasError('refuelingDateTime', 'required')">Refueling date-time reading is required</mat-error>
+      </mat-form-field>
+      
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button type="button" mat-flat-button color="warning" (click)="onNoClick()">Cancel</button>
+    <button mat-flat-button *ngIf="operationType=='ADD'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid"> Add </button>
+    <button mat-flat-button *ngIf="operationType=='UPDATE'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid"> Update </button>
+  </div>
+</form>

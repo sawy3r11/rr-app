@@ -5,6 +5,7 @@ import { RefuellingDialogComponent } from './refuelling-dialog/refuelling-dialog
 import { RefuellingRegistryService } from '../core/service/refuelling-registry.service';
 import { OperationType } from '../core/model/OperationType.model';
 import { BehaviorSubject } from 'rxjs';
+import { RefuellingPersonService } from '../core/service/refuelling-person.service';
 
 @Component({
   selector: 'app-registry-page',
@@ -13,19 +14,22 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class RegistryPageComponent implements OnInit {
 
-  constructor(public refuellingRegistryService: RefuellingRegistryService, public dialog: MatDialog) { }
+  constructor(public refuellingRegistryService: RefuellingRegistryService, 
+    public refuellingPersonService:RefuellingPersonService,
+    public dialog: MatDialog) { }
 
   refuellingsRegistryTableOperationInProgres_0: BehaviorSubject<Boolean>;
   refuellings_0 = this.refuellingRegistryService.refuellingsRegistry;
 
   ngOnInit() {
     this.refuellingRegistryService.getRefuellingRegisrty();
+    this.refuellingPersonService.getRefuellingPeople();
     this.refuellingsRegistryTableOperationInProgres_0 = this.refuellingRegistryService.refuellingsRegistryTableOperationInProgres;
   }
 
   openAddDialog(){
     const dialogRef = this.dialog.open(RefuellingDialogComponent, {
-      width: '400px',
+      width: '800px',
       data: {operationType: OperationType.ADD, 
         refuelling: {id: 0,
         refuelingDateTime: null ,
@@ -50,7 +54,7 @@ export class RegistryPageComponent implements OnInit {
 
   updateRefuelling(val){
     const dialogRef = this.dialog.open(RefuellingDialogComponent, {
-      width: '400px',
+      width: '800px',
       data: {
               operationType: OperationType.UPDATE, 
               refuelling: val

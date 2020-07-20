@@ -1,40 +1,86 @@
 <h1 mat-dialog-title>Refuellig Dialog</h1>
 
-<form [formGroup]="refuellingForm" autocomplete="off" novalidate (ngSubmit)="submitRefuellingFrom(refuellingForm.value)" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
-  <div mat-dialog-content>
-    <div class="example-container">
-      <mat-form-field>
-        <input type="number" formControlName="price" matInput placeholder="Price" id="price">
-        <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
-        <mat-error *ngIf="hasError('price', 'min')">Minimal value is 0.001</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input type="number" formControlName="amount" matInput placeholder="Amount" id="amount">
-        <mat-error *ngIf="hasError('amount', 'required')">Amount is required</mat-error>
-        <mat-error *ngIf="hasError('amount', 'min')">Minimal value is 0.001</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input type="number" formControlName="odometerReading" matInput placeholder="Odometer reading" id="odometerReading">
-        <mat-error *ngIf="hasError('odometerReading', 'required')">Odometer reading is required</mat-error>
-        <mat-error *ngIf="hasError('odometerReading', 'min')">Minimal value is 0.001</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-select placeholder="Fuel Type" formControlName="fuelType" id="fuelType">
-          <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{fuelType}}</mat-option>
-        </mat-select>
-        <mat-error *ngIf="hasError('fuelType', 'required')">Fuel type reading is required</mat-error>
-      </mat-form-field>
+<mat-horizontal-stepper linear="true" #stepper>
+  <mat-step [stepControl]="refuellingForm">
 
-      <mat-form-field>
-        <input type="datetime-local" formControlName="refuelingDateTime" matInput placeholder="Date" id="refuelingDateTime">
-        <mat-error *ngIf="hasError('refuelingDateTime', 'required')">Refueling date-time reading is required</mat-error>
-      </mat-form-field>
-      
+    <form [(formGroup)]="refuellingForm" autocomplete="off" novalidate  fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <ng-template matStepLabel>Fill out refuelling deatils</ng-template>
+      <div mat-dialog-content>
+        <div class="example-container">
+          <mat-form-field>
+            <input type="number" formControlName="price" matInput placeholder="Price" id="price">
+            <mat-error *ngIf="hasError('price', 'required')">Price is required</mat-error>
+            <mat-error *ngIf="hasError('price', 'min')">Minimal value is 0.001</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="number" formControlName="amount" matInput placeholder="Amount" id="amount">
+            <mat-error *ngIf="hasError('amount', 'required')">Amount is required</mat-error>
+            <mat-error *ngIf="hasError('amount', 'min')">Minimal value is 0.001</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="number" formControlName="odometerReading" matInput placeholder="Odometer reading" id="odometerReading">
+            <mat-error *ngIf="hasError('odometerReading', 'required')">Odometer reading is required</mat-error>
+            <mat-error *ngIf="hasError('odometerReading', 'min')">Minimal value is 0.001</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="Fuel Type" formControlName="fuelType" id="fuelType">
+              <mat-option *ngFor="let fuelType of fuelTypes" [value]="fuelType">{{fuelType}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="hasError('fuelType', 'required')">Fuel type reading is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="datetime-local" formControlName="refuelingDateTime" matInput placeholder="Date" id="refuelingDateTime">
+            <mat-error *ngIf="hasError('refuelingDateTime', 'required')">Refueling date-time reading is required</mat-error>
+          </mat-form-field>
+          
+        </div>
+      </div>
+      <div mat-dialog-actions class="bottom-section" class="bottom-section">
+        <button mat-button matStepperNext>Next</button>
+        <button type="button" mat-flat-button color="warning" (click)="onNoClick()">Cancel</button>
+      </div>
+    </form>
+
+  </mat-step>
+
+  <mat-step [stepControl]="refuellingForm">
+    <ng-template matStepLabel>Select Fueling Person</ng-template>
+
+    <form [formGroup]="selectRefuellingPersonForm" autocomplete="off" novalidate  fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <div mat-dialog-content>
+        <div class="example-container">
+          <mat-form-field>
+            <mat-label>Select refuelling person</mat-label>
+            <mat-select formControlName="refuellingPersonId" id="refuellingPersonId">
+              <mat-option *ngFor="let refuellingPerson of (refuellingPeople_0|async)" [value]="refuellingPerson.id">
+                {{refuellingPerson.name}} {{refuellingPerson.surname }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+
+    <div class="bottom-section">
+      <button mat-button matStepperNext>Next</button>
+      <button mat-button (click)="showAddNewRefuellingPerson()">Add new Person</button>
+      <button mat-button matStepperPrevious>Back</button>
     </div>
-  </div>
-  <div mat-dialog-actions>
-    <button type="button" mat-flat-button color="warning" (click)="onNoClick()">Cancel</button>
-    <button mat-flat-button *ngIf="operationType=='ADD'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid"> Add </button>
-    <button mat-flat-button *ngIf="operationType=='UPDATE'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid"> Update </button>
-  </div>
-</form>
+    
+    <div *ngIf="showAddNewRefuellingPersonForm">
+      <refuelling-person-form 
+        [refuellingPerson]="refuellingPerson"
+        (submitForm)="submitAddRefuellingPerson($event)"></refuelling-person-form>
+    </div>
+  </mat-step>
+
+  <mat-step class="bottom-section">
+    <ng-template matStepLabel>Confirm</ng-template>
+    <h3>Press button to confirm action</h3>
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-flat-button *ngIf="operationType=='ADD'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid" (click)="submitRefuellingFrom()"> Add </button>
+    <button mat-flat-button *ngIf="operationType=='UPDATE'" color="primary" cdkFocusInitial  [disabled]="!refuellingForm.valid" (click)="submitRefuellingFrom()"> Update </button>
+  </mat-step>
+
+</mat-horizontal-stepper>

@@ -22,6 +22,9 @@ import { RefuellingDialogComponent } from './registry-page/refuelling-dialog/ref
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe, CommonModule } from '@angular/common';
 import { MessageDialogComponent } from './core/components/message-dialog/message-dialog.component';
+import { RefuellingPersonService } from './core/service/refuelling-person.service';
+import { RefuellingPersonFormComponent } from './registry-page/refuelling-person-form/refuelling-person-form.component';
+
 
 
 @NgModule({
@@ -32,7 +35,8 @@ import { MessageDialogComponent } from './core/components/message-dialog/message
     AboutPageComponent,
     RegistryTableComponent,
     RefuellingDialogComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    RefuellingPersonFormComponent
   ],
   imports: [
     HttpClientModule,
@@ -48,7 +52,7 @@ import { MessageDialogComponent } from './core/components/message-dialog/message
     RefuellingDialogComponent,
     MessageDialogComponent
   ],
-  providers: [RefuellingRegistryService, DatePipe],
+  providers: [RefuellingRegistryService, RefuellingPersonService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

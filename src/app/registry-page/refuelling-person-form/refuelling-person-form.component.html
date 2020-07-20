@@ -1,0 +1,30 @@
+<mat-card>
+  <h3>Add new Refuelling Person</h3>
+  <form [(formGroup)]="refuellingPersonForm" autocomplete="off" novalidate  fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+      <ng-template matStepLabel>Fill out refuelling deatils</ng-template>
+      <div mat-dialog-content>
+        <div class="example-container">
+          <mat-form-field>
+            <input type="text" formControlName="name" matInput placeholder="Name" id="name">
+            <mat-error *ngIf="hasError('name', 'required')">Price is required</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" formControlName="surname" matInput placeholder="Surname" id="surname">
+            <mat-error *ngIf="hasError('surname', 'required')">Surname is required</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" formControlName="postCode" matInput placeholder="Post Code" id="postCode">
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" formControlName="city" matInput placeholder="City" id="city">
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" formControlName="address" matInput placeholder="address" id="address">
+          </mat-form-field>
+        </div>
+      </div>
+      <div mat-dialog-actions>
+          <button mat-flat-button color="primary" cdkFocusInitial  [disabled]="!refuellingPersonForm.valid" (click)="submit()"> Add </button>
+      </div>
+    </form>
+</mat-card>

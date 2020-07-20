@@ -20,7 +20,7 @@ export class RefuellingRegistryService {
     this.refuellingsRegistryTableOperationInProgres.next( true );
     this.getRefuellingRegistryAPI()
       .subscribe((refuellingRegisrty: RefuellingModel.RefuellingResDTO[])=>{
-        this.refuellingsRegistry.next( refuellingRegisrty );
+        this.refuellingsRegistry.next( refuellingRegisrty as RefuellingModel.Refuelling[] );
         this.refuellingsRegistryTableOperationInProgres.next(false);
       },
       (error: HttpErrorResponse)=>{
@@ -34,7 +34,7 @@ export class RefuellingRegistryService {
     let refuellingReq = refuelling;
     this.addRefuellingRegistryAPI(refuellingReq)
       .subscribe((val: RefuellingModel.RefuellingResDTO)=>{
-        let addedItem: RefuellingModel.Refuelling = val;
+        let addedItem: RefuellingModel.Refuelling = val as RefuellingModel.Refuelling;
         let refuellings = this.refuellingsRegistry.value;
         refuellings = [...refuellings, addedItem];
         this.refuellingsRegistry.next( refuellings );
@@ -65,7 +65,7 @@ export class RefuellingRegistryService {
       .subscribe((res:RefuellingModel.RefuellingResDTO)=>{
         let items = this.refuellingsRegistry.value;
         let index = items.findIndex(x=>x.id == refuelling.id);
-        items[index] = res;
+        items[index] = res as RefuellingModel.Refuelling;
         this.refuellingsRegistry.next( [...items] );
         this.refuellingsRegistryTableOperationInProgres.next(false);
       },
@@ -111,4 +111,8 @@ export class RefuellingRegistryService {
     return this.http.delete(api);
   }
   /*------------------//API-----------------*/
+
+  public refullingResToRefulling(){
+    
+  }
 }

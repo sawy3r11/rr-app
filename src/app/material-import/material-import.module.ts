@@ -9,8 +9,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatTabsModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatTabsModule, MatProgressSpinnerModule, MatStepper, MatStepperModule, MatChipsModule } from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
+
 
 
 
@@ -34,7 +35,9 @@ import {MatIconModule} from '@angular/material/icon';
     MatDialogModule,
     MatTabsModule,
     MatProgressSpinnerModule,
-    MatIconModule
+    MatIconModule,
+    MatStepperModule,
+    MatChipsModule,
   ]
 })
 export class MaterialImportModule { }

@@ -9,7 +9,7 @@ import { RefuellingModel } from 'src/app/core/model/refuelling-model';
 })
 export class RegistryTableComponent implements OnInit {
 
-  displayedColumns: String[] = ['refuelingDateTime', 'price', 'amount', 'fuelType', 'odometerReading', 'updateRow', 'deleteRow'];
+  displayedColumns: String[] = ['refuelingDateTime', 'price', 'amount', 'cost', 'fuelType', 'odometerReading', 'updateRow', 'deleteRow'];
   _refuellings: RefuellingModel.Refuelling[] = [];
   @Input("refuellings") set refuellingsInput(val){
     this._refuellings = val;
